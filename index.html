@@ -24,7 +24,7 @@
             --text-dim: #94a3b8;
         }
 
-		body {
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: var(--text);
@@ -44,7 +44,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.6;
+            opacity: 0.15;
             z-index: -1;
         }
 
@@ -335,6 +335,48 @@
             transform: scaleX(0);
             z-index: 1000;
         }
+
+        .carousel-container {
+            margin-top: 30px;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            animation: scroll 40s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        .carousel-image {
+            height: 300px;
+            width: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .carousel-image:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
     </style>
 </head>
 <body>
@@ -384,6 +426,28 @@
                 </div>
                 <div class="achievement-item">
                     <strong>🥉 2nd Runner Up</strong> - AUST CSE Carnival 3.0 Software Exhibition (2024)
+                </div>
+            </div>
+            
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <img src="https://i.imgur.com/XFr8mWt.jpg" alt="Achievement 1" class="carousel-image">
+                    <img src="https://i.imgur.com/HKKk9um.jpg" alt="Achievement 2" class="carousel-image">
+                    <img src="https://i.imgur.com/msDFfnA.jpg" alt="Achievement 3" class="carousel-image">
+                    <img src="https://i.imgur.com/rwTr9Oi.jpg" alt="Achievement 4" class="carousel-image">
+                    <img src="https://i.imgur.com/OW5egDv.jpg" alt="Achievement 5" class="carousel-image">
+                    <img src="https://i.imgur.com/OszWdhn.jpg" alt="Achievement 6" class="carousel-image">
+                    <img src="https://i.imgur.com/AOMBgnM.jpg" alt="Achievement 7" class="carousel-image">
+                    <img src="https://i.imgur.com/ADstSKy.jpg" alt="Achievement 8" class="carousel-image">
+                    <!-- Duplicate for seamless loop -->
+                    <img src="https://i.imgur.com/XFr8mWt.jpg" alt="Achievement 1" class="carousel-image">
+                    <img src="https://i.imgur.com/HKKk9um.jpg" alt="Achievement 2" class="carousel-image">
+                    <img src="https://i.imgur.com/msDFfnA.jpg" alt="Achievement 3" class="carousel-image">
+                    <img src="https://i.imgur.com/rwTr9Oi.jpg" alt="Achievement 4" class="carousel-image">
+                    <img src="https://i.imgur.com/OW5egDv.jpg" alt="Achievement 5" class="carousel-image">
+                    <img src="https://i.imgur.com/OszWdhn.jpg" alt="Achievement 6" class="carousel-image">
+                    <img src="https://i.imgur.com/AOMBgnM.jpg" alt="Achievement 7" class="carousel-image">
+                    <img src="https://i.imgur.com/ADstSKy.jpg" alt="Achievement 8" class="carousel-image">
                 </div>
             </div>
         </section>
