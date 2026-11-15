@@ -160,6 +160,17 @@ section{position:relative;isolation:isolate;padding:clamp(40px,7vw,88px) 0}
 .row{position:relative}
 .side{position:absolute;left:0;top:84px;width:240px;height:calc(100% - 84px);pointer-events:none;z-index:-1}
 
+
+.gal{gap:16px;border:0}
+.gal button,.gal button:nth-child(n){border:2px solid var(--fg);box-shadow:5px 5px 0 var(--acc)}
+.gal button.bad::after{content:"Image did not load";position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;font-size:13px;color:var(--dim)}
+dialog{width:min(92vw,1000px)}
+dialog img{width:100%;height:auto;max-height:76vh;object-fit:contain;background:var(--panel)}
+@media (max-width:860px){.gal{gap:12px}}
+
+/* gallery: padding inside tiles + show full certificate (no crop) */
+.gal button{box-sizing:border-box;padding:10px}
+.gal img{object-fit:contain}
 </style>
 </head>
 <body>
@@ -174,7 +185,7 @@ section{position:relative;isolation:isolate;padding:clamp(40px,7vw,88px) 0}
   <p class="lede">Junior Executive in software development at iTech Velocity, building real-time systems in C#/.NET. Outside work I research <b>models that can explain themselves</b>: water quality, emotion recognition, medical imaging.</p>
  </div>
  <div class="hero-r">
-  <div class="me"><img src="https://i.imgur.com/KslBEVJ.jpg" alt="Portrait of Md Shahriar Rahman Bhuiyan" onerror="this.parentNode.hidden=true"></div>
+  <div class="me"><img src="https://i.imgur.com/KslBEVJ.jpg" referrerpolicy="no-referrer" alt="Portrait of Md Shahriar Rahman Bhuiyan" onerror="this.parentNode.hidden=true"></div>
   <div class="panel" role="img" aria-label="Simulated emotion recognition output with probabilities that change over time">
    <h3>Emotion readout <small>simulated output</small></h3>
    <div class="bars" id="bars"></div>
@@ -243,8 +254,8 @@ section{position:relative;isolation:isolate;padding:clamp(40px,7vw,88px) 0}
  </ul>
 </div></div></section>
 
-<section id="gallery"><div class="row"><h2>Certificates & moments</h2><div class="gal" id="gal"><button type="button" data-i="0" aria-label="Open photo 1"><img src="https://i.imgur.com/XFr8mWt.jpg" alt="Achievement and certificate photo 1" loading="lazy"></button><button type="button" data-i="1" aria-label="Open photo 2"><img src="https://i.imgur.com/HKKk9um.jpg" alt="Achievement and certificate photo 2" loading="lazy"></button><button type="button" data-i="2" aria-label="Open photo 3"><img src="https://i.imgur.com/msDFfnA.jpg" alt="Achievement and certificate photo 3" loading="lazy"></button><button type="button" data-i="3" aria-label="Open photo 4"><img src="https://i.imgur.com/rwTr9Oi.jpg" alt="Achievement and certificate photo 4" loading="lazy"></button><button type="button" data-i="4" aria-label="Open photo 5"><img src="https://i.imgur.com/OW5egDv.jpg" alt="Achievement and certificate photo 5" loading="lazy"></button><button type="button" data-i="5" aria-label="Open photo 6"><img src="https://i.imgur.com/OszWdhn.jpg" alt="Achievement and certificate photo 6" loading="lazy"></button><button type="button" data-i="6" aria-label="Open photo 7"><img src="https://i.imgur.com/AOMBgnM.jpg" alt="Achievement and certificate photo 7" loading="lazy"></button><button type="button" data-i="7" aria-label="Open photo 8"><img src="https://i.imgur.com/ADstSKy.jpg" alt="Achievement and certificate photo 8" loading="lazy"></button></div></div></section>
-<dialog id="lb" aria-label="Photo viewer"><img id="lbimg" alt=""><div class="lb"><button class="btn" id="pv" type="button">Previous</button><button class="btn" id="cl" type="button">Close</button><button class="btn" id="nx" type="button">Next</button></div></dialog>
+<section id="gallery"><div class="row"><h2>Certificates & moments</h2><div class="gal" id="gal"><button type="button" data-i="0" aria-label="Open photo 1"><img src="https://i.imgur.com/XFr8mWt.jpg" alt="Achievement and certificate photo 1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="1" aria-label="Open photo 2"><img src="https://i.imgur.com/HKKk9um.jpg" alt="Achievement and certificate photo 2" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="2" aria-label="Open photo 3"><img src="https://i.imgur.com/msDFfnA.jpg" alt="Achievement and certificate photo 3" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="3" aria-label="Open photo 4"><img src="https://i.imgur.com/rwTr9Oi.jpg" alt="Achievement and certificate photo 4" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="4" aria-label="Open photo 5"><img src="https://i.imgur.com/OW5egDv.jpg" alt="Achievement and certificate photo 5" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="5" aria-label="Open photo 6"><img src="https://i.imgur.com/OszWdhn.jpg" alt="Achievement and certificate photo 6" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="6" aria-label="Open photo 7"><img src="https://i.imgur.com/AOMBgnM.jpg" alt="Achievement and certificate photo 7" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button><button type="button" data-i="7" aria-label="Open photo 8"><img src="https://i.imgur.com/ADstSKy.jpg" alt="Achievement and certificate photo 8" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('bad')"></button></div></div></section>
+<dialog id="lb" aria-label="Photo viewer"><img id="lbimg" alt="" referrerpolicy="no-referrer"><div class="lb"><button class="btn" id="pv" type="button">Previous</button><button class="btn" id="cl" type="button">Close</button><button class="btn" id="nx" type="button">Next</button></div></dialog>
 
 <section class="contact" id="contact">
  <h2 style="position:static">Let’s work together</h2>
@@ -348,7 +359,7 @@ if(Math.hypot(dx,dy)<reach)el.style.translate=(dx*.25).toFixed(1)+'px '+(dy*.25)
 // spray-paint easter egg
 var tp=document.createElement('div');tp.className='toast';tp.setAttribute('role','status');document.body.appendChild(tp);var tt;
 function toast(m){tp.textContent=m;tp.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){tp.classList.remove('on')},2400)}
-var hx=0,hy=0,px=0,py=0,w=24,bt=0,idle=0,bubs=[];
+var hx=0,hy=0,px=0,py=0,w=24,bdist=0,idle=0,bubs=[];
 function mkc(z){var c=document.createElement('canvas');c.setAttribute('aria-hidden','true');c.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;display:none;z-index:'+z;document.body.appendChild(c);return c}
 if(live){A=mkc(40);B=mkc(41);a=A.getContext('2d');b=B.getContext('2d');A.style.opacity='.62';upc()}
 function prs(){if(!live)return;var W=innerWidth,H=innerHeight,d=Math.min(2,devicePixelRatio||1);[A,B].forEach(function(c){c.width=W*d;c.height=H*d});a.setTransform(d,0,0,d,0,0);b.setTransform(d,0,0,d,0,0)}
@@ -369,7 +380,7 @@ a.globalCompositeOperation='source-over';a.strokeStyle=a.fillStyle='rgb('+col+')
 a.beginPath();a.moveTo(px,py);a.lineTo(hx,hy);a.stroke();
 var n=Math.min(10,3+(d*.25|0));
 for(var i=0;i<n;i++){var s=Math.random()*6.2832,rr=w*.5+Math.abs(Math.random()+Math.random()+Math.random()-1.5)*34;a.beginPath();a.arc(hx+Math.cos(s)*rr,hy+Math.sin(s)*rr,.6+Math.random()*1.9,0,6.2832);a.fill()}
-bt+=d;if(bt>26){bt=0;if(Math.random()<.75)bubs.push({x:hx+(Math.random()-.5)*60,y:hy+(Math.random()-.5)*60,r:3+Math.random()*9,vx:(Math.random()-.5)*.4,vy:-(.2+Math.random()*.5),l:0,m:70+Math.random()*80,ph:Math.random()*6})}
+bdist+=d;if(bdist>26){bdist=0;if(Math.random()<.75)bubs.push({x:hx+(Math.random()-.5)*60,y:hy+(Math.random()-.5)*60,r:3+Math.random()*9,vx:(Math.random()-.5)*.4,vy:-(.2+Math.random()*.5),l:0,m:70+Math.random()*80,ph:Math.random()*6})}
 px=hx;py=hy;idle=0}else idle++;
 a.globalCompositeOperation='destination-out';a.fillStyle='rgba(0,0,0,.05)';a.fillRect(0,0,W,H);if(idle===200)a.clearRect(0,0,W,H);
 for(var j=bubs.length-1;j>=0;j--){var o=bubs[j];o.l++;var t=o.l/o.m;
