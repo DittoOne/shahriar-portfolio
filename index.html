@@ -152,14 +152,14 @@ html.cur dialog,html.cur dialog *{cursor:auto!important}
 .toast.on{opacity:1;translate:-50% 0}
 .links .btn,.tgl{transition:transform .15s,box-shadow .15s,translate .35s cubic-bezier(.2,.8,.2,1),background-color .35s,color .35s,border-color .35s}
 
-section{position:relative;isolation:isolate;padding:clamp(32px,5vw,56px) 0 128px}
-.contact{padding-bottom:128px}.links{margin-bottom:0}
+section{position:relative;isolation:isolate;padding:clamp(40px,7vw,88px) 0}
+.contact{padding-bottom:0}.links{margin-bottom:56px}
 .band{position:absolute;left:0;bottom:0;width:100%;height:128px;pointer-events:none;z-index:-1}
-@media (max-width:860px){section,.contact{padding-bottom:96px}.band{height:96px}}
+.field{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 
 .row{position:relative}
 .side{position:absolute;left:0;top:84px;width:240px;height:calc(100% - 84px);pointer-events:none;z-index:-1}
-@media (max-width:860px){.side{display:none}}
+
 </style>
 </head>
 <body>
@@ -169,7 +169,6 @@ section{position:relative;isolation:isolate;padding:clamp(32px,5vw,56px) 0 128px
 <main id="top">
 <div class="w">
 <div class="hero">
- <canvas id="grid" class="gridc" aria-hidden="true"></canvas>
  <div class="hero-l">
   <h1 aria-label="Md Shahriar Rahman Bhuiyan"><span><i>Md Shahriar</i></span><span><i>Rahman</i></span><span><i>Bhuiyan</i></span></h1>
   <p class="lede">Junior Executive in software development at iTech Velocity, building real-time systems in C#/.NET. Outside work I research <b>models that can explain themselves</b>: water quality, emotion recognition, medical imaging.</p>
@@ -255,7 +254,7 @@ section{position:relative;isolation:isolate;padding:clamp(32px,5vw,56px) 0 128px
   <a class="btn" href="https://github.com/DittoOne" target="_blank" rel="noopener">GitHub</a>
   <a class="btn" href="https://www.linkedin.com/in/md-shahriar-rahman-bhuiyan-3893012a8" target="_blank" rel="noopener">LinkedIn</a>
   <a class="btn" href="https://www.researchgate.net/profile/Md-Shahriar-Rahman-Bhuiyan" target="_blank" rel="noopener">ResearchGate</a>
-  <a class="btn" href="tel:+8801796368312">+880 1796 368312</a>
+  <a class="btn" href="https://wa.me/8801796368312" target="_blank" rel="noopener">WhatsApp +880 1796 368312</a>
  </div>
 </section>
 </div>
@@ -304,14 +303,14 @@ var fgc='236,233,255',col='163,148,255',ink='163,148,255',grids=[],A,B,a,b;
 function hexrgb(h){h=h.replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');return parseInt(h.slice(0,2),16)+','+parseInt(h.slice(2,4),16)+','+parseInt(h.slice(4,6),16)}
 function upc(){var s=getComputedStyle(root);function p(n){var v=s.getPropertyValue(n).trim();return v.charAt(0)==='#'?hexrgb(v):null}fgc=p('--fg')||fgc;col=p('--acc')||col;ink=p('--acc-ink')||ink;if(A)A.style.mixBlendMode=eff()==='light'?'multiply':'normal';grids.forEach(function(o){o.dirty=true})}
 upc();tg.addEventListener('click',upc);matchMedia('(prefers-color-scheme: light)').addEventListener('change',upc);
-// dot grids: the hero plus a band under every section
-document.querySelectorAll('main section').forEach(function(sec){var c=document.createElement('canvas');c.className='gridc band';c.setAttribute('aria-hidden','true');sec.appendChild(c)});
-document.querySelectorAll('.row').forEach(function(r){var c=document.createElement('canvas');c.className='gridc side';c.setAttribute('aria-hidden','true');r.appendChild(c)});
+// one page-wide dot field behind everything; list items are cut out of it
+var fc=document.createElement('canvas');fc.className='gridc field';fc.setAttribute('aria-hidden','true');document.body.insertBefore(fc,document.body.firstChild);var exl=document.querySelectorAll('main li,main .skills>div');
 function gsz(o){var r=o.c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);o.W=r.width;o.H=r.height;o.c.width=r.width*d;o.c.height=r.height*d;o.g.setTransform(d,0,0,d,0,0);o.dirty=true}
 document.querySelectorAll('canvas.gridc').forEach(function(c){var o={c:c,g:c.getContext('2d'),W:0,H:0,s:0,x:0,y:0,dirty:true};grids.push(o);gsz(o);if(window.ResizeObserver)new ResizeObserver(function(){gsz(o)}).observe(c);else addEventListener('resize',function(){gsz(o)})});
 var SP=28;
 function drawGrid(o,cx,cy,s){
-var g=o.g,GW=o.W,GH=o.H;g.clearRect(0,0,GW,GH);var R=130,near=[],act=s>.01;
+var g=o.g,GW=o.W,GH=o.H;g.clearRect(0,0,GW,GH);var R=140,near=[],act=s>.01;
+g.save();g.beginPath();g.rect(0,0,GW,GH);for(var e=0;e<exl.length;e++){var rc=exl[e].getBoundingClientRect();if(rc.bottom>0&&rc.top<GH)g.rect(rc.left,rc.top,rc.width,rc.height)}g.clip('evenodd');
 g.fillStyle='rgba('+fgc+',.2)';g.beginPath();
 for(var x=SP/2;x<GW;x+=SP)for(var y=SP/2;y<GH;y+=SP){
 if(act){var dx=x-cx,dy=y-cy,d=Math.sqrt(dx*dx+dy*dy);if(d<R){var f=1-d/R,u=f*f*18*s;near.push({x:x+(d?dx/d*u:0),y:y+(d?dy/d*u:0),f:f*s});continue}}
@@ -320,24 +319,27 @@ g.fill();g.lineWidth=1;
 for(var i=0;i<near.length;i++){var p=near[i];
 for(var j=i+1;j<near.length;j++){var q=near[j],ex=p.x-q.x;if(ex>46||ex<-46)continue;var ey=p.y-q.y;if(ex*ex+ey*ey<2116){g.strokeStyle='rgba('+ink+','+(Math.min(p.f,q.f)*.7).toFixed(3)+')';g.beginPath();g.moveTo(p.x,p.y);g.lineTo(q.x,q.y);g.stroke()}}
 var cdx=p.x-cx,cdy=p.y-cy;if(cdx*cdx+cdy*cdy<4900){g.strokeStyle='rgba('+ink+','+(p.f*.55).toFixed(3)+')';g.beginPath();g.moveTo(cx,cy);g.lineTo(p.x,p.y);g.stroke()}}
-for(var k=0;k<near.length;k++){var n=near[k],z=2+4*n.f;g.fillStyle='rgba('+ink+','+(.3+.7*n.f).toFixed(3)+')';g.fillRect(n.x-z/2,n.y-z/2,z,z)}}
+for(var k=0;k<near.length;k++){var n=near[k],z=2+4*n.f;g.fillStyle='rgba('+ink+','+(.3+.7*n.f).toFixed(3)+')';g.fillRect(n.x-z/2,n.y-z/2,z,z)}g.restore()}
 // cursor
-var mx=-1,my=-1,seen=false,rx=0,ry=0,gcx=0,gcy=0,gs=0,fr=0,ring,dot,clab,paintOn=false;
+var mx=-1,my=-1,away=false,seen=false,rx=0,ry=0,gcx=0,gcy=0,gs=0,fr=0,ring,dot,clab,paintOn=false;
 if(live){
 ring=document.createElement('div');dot=document.createElement('div');clab=document.createElement('span');
 ring.className='c-ring';dot.className='c-dot';ring.appendChild(clab);document.body.appendChild(ring);document.body.appendChild(dot);
 document.querySelectorAll('.proj a').forEach(function(e){e.dataset.cur='Open'});
 document.querySelectorAll('.gal button').forEach(function(e){e.dataset.cur='View'});
 document.querySelectorAll('.mail').forEach(function(e){e.dataset.cur='Email'});
+document.querySelectorAll('a[href*="wa.me"]').forEach(function(e){e.dataset.cur='Chat'});
+document.querySelectorAll('a[href]').forEach(function(e){if(e.dataset.cur)return;var h=e.getAttribute('href');e.dataset.cur=h.indexOf('mailto:')===0?'Email':h.indexOf('tel:')===0?'Call':/^https?:/.test(h)?'Go':''});
+var cp=document.getElementById('copy');if(cp)cp.dataset.cur='Copy';
 document.addEventListener('mousedown',function(){ring.classList.add('press')});
 document.addEventListener('mouseup',function(){ring.classList.remove('press')});
-document.documentElement.addEventListener('mouseleave',function(){ring.classList.remove('on');dot.classList.remove('on')});
+document.documentElement.addEventListener('mouseleave',function(){away=true;ring.classList.remove('on');dot.classList.remove('on')});
 }
 var mag=[].slice.call(document.querySelectorAll('.links .btn,#tgl'));
 addEventListener('pointermove',function(e){
 if(e.pointerType!=='mouse'||!live)return;
 mx=e.clientX;my=e.clientY;
-if(!seen){seen=true;rx=mx;ry=my;root.classList.add('cur')}
+away=false;if(!seen){seen=true;rx=mx;ry=my;root.classList.add('cur')}
 ring.classList.add('on');dot.classList.add('on');
 var t=e.target.closest&&e.target.closest('a,button,[data-cur]'),l=t&&t.dataset.cur||'';
 ring.classList.toggle('hov',!!t);ring.classList.toggle('lbl',!!l);clab.textContent=l;dot.classList.toggle('hide',!!t);
@@ -385,11 +387,12 @@ var off=!!document.querySelector('dialog[open]');ring.classList.toggle('off',off
 if(paintOn)paint()}
 for(var i=0;i<grids.length;i++){var o=grids[i],r=o.c.getBoundingClientRect(),vis=r.bottom>0&&r.top<innerHeight;
 if(!vis&&o.s<.005)continue;
-var inside=live&&seen&&mx>=r.left&&mx<=r.right&&my>=r.top&&my<=r.bottom;
+var inside=live&&seen&&!away;
 if(inside){var tx=mx-r.left,ty=my-r.top;if(o.s<.02){o.x=tx;o.y=ty}o.x+=(tx-o.x)*.25;o.y+=(ty-o.y)*.25}
 o.s+=((inside?1:0)-o.s)*.1;
 if(o.s>.005||(o.dirty&&vis)){drawGrid(o,o.x,o.y,o.s);o.dirty=o.s>.005}}
 requestAnimationFrame(tick)}
+addEventListener('scroll',function(){grids.forEach(function(o){o.dirty=true})},{passive:true});
 tick();
 })();
 </script>
